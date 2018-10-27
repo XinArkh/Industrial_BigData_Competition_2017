@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
 import re
 import csv
 import numpy as np

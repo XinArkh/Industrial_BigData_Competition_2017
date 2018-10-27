@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
 '''
     在15_failureInfo_raw.csv开始时间与结束时间的时间戳最后添加秒数据
     注意：此脚本已作废，不需要运行
