@@ -1,5 +1,4 @@
 import csv
-import re
 from datetime import datetime
 
 batch = str(21)  # 15 或 21
