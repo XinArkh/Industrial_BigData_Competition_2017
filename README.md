@@ -10,14 +10,15 @@
 
 ### 脚本说明：
 
-1. labelGen.py——从原始数据中生成结冰标签信息
-2. feature_selector_process.ipynb——用feature_selector库**尝试**预筛选数据的Jupyter Notebook草稿本，Python环境为3.6.6（需要手动下载[这个库](https://github.com/WillKoehrsen/feature-selector)）
-3. Script.ipynb—观察特征关系的草稿本，Python环境为3.5.2
-4. plot.py—两特征作图观察(与草稿本同)
-5. avgData.py——根据时间戳对数据分组取平均值处理
-6. cutPower.py——截去高功率数据（依据：观察得功率高时无结冰）
-7. svm_method.py——使用SVM算法训练模型
-8. score.py——计算模型准确率及得分
+1. console.py——控制台，作为函数调用的总端口
+2. labelGen.py——从原始数据中生成结冰标签信息
+3. feature_selector_process.ipynb——用feature_selector库**尝试**预筛选数据的Jupyter Notebook草稿本
+4. Script.ipynb—观察特征关系的草稿本
+5. plot.py—两特征作图观察(与草稿本同)
+6. avgData.py——根据时间戳对数据分组取平均值处理
+7. cutPower.py——截去高功率数据（依据：观察得功率高时无结冰）
+8. svm_method.py——使用SVM算法训练模型
+9. score.py——计算模型准确率及得分
 
 ### 其它备忘：
 
