@@ -7,15 +7,15 @@ import numpy as np
 import pandas as pd
 
 batch = str(21)  # 15 或 21
+minutes = 30  # time period (minutes) to be averaged
 
 data = pd.read_csv('./processed/%s_data.csv' %batch)
-with open('./processed/%s_avg10_data.csv' %batch, 'w') as write:
+with open('./processed/%s_avg%s_data.csv' %(batch, str(minutes)), 'w') as write:
     writer = csv.writer(write)
     titles = data.columns
     writer.writerow(titles)
 
     length = len(data)
-    minutes = 10  # time period (minutes) to be averaged # 5 or 10
     i = 0
     j = 1
     while i + j < length:

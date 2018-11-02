@@ -12,10 +12,12 @@
 
 1. labelGen.py——从原始数据中生成结冰标签信息
 2. feature_selector_process.ipynb——用feature_selector库**尝试**预筛选数据的Jupyter Notebook草稿本
-3. avgData.py——根据时间戳对数据分组取平均值处理
-4. cutPower.py——截去高功率数据（依据：观察得功率高时无结冰）
-5. svm_method.py——使用SVM算法训练模型
-6. score.py——计算模型准确率及得分
+3. Script.ipynb—观察特征关系的草稿本
+4. plot.py—两特征作图观察(与草稿本同)
+5. avgData.py——根据时间戳对数据分组取平均值处理
+6. cutPower.py——截去高功率数据（依据：观察得功率高时无结冰）
+7. svm_method.py——使用SVM算法训练模型
+8. score.py——计算模型准确率及得分
 
 ### 其它备忘：
 
