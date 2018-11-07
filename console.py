@@ -19,8 +19,8 @@ norm=True
 
 # CutPower(batch=batch, minutes=minutes)
 
-# SVM_Method(batch=batch, minutes=minutes, 
-#     elementList=elementList, norm=norm)
+SVM_Method(batch=batch, minutes=minutes, 
+    elementList=elementList, norm=norm)
 
 Score(batch=batch, minutes=minutes, 
     elementList=elementList, norm=norm)

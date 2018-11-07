@@ -19,6 +19,7 @@
 7. cutPower.py——截去高功率数据（依据：观察得功率高时无结冰）
 8. svm_method.py——使用SVM算法训练模型
 9. score.py——计算模型准确率及得分
+10. tmp.py—求C参量脚本（未接入console.py）
 
 ### 其它备忘：
 

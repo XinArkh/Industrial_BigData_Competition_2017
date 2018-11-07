@@ -40,7 +40,7 @@ def _Train_Test_Gen(X, y, method='normal', train_size=5000, random_state=1):
         y_1 = y[y>0]
         X_0 = X[y==0]
         y_0 = y[y==0]
-        # 结冰与不结冰各自拆分训练集与验证集
+        # 结冰与不结冰各自拆分训练集与验证集,结冰训练集取1000个（然后复制一倍），不结冰取3000个
             # 结冰部分
         X_1_train = pd.concat([X_1[:1000], X_1[:1000]], ignore_index=True)
         y_1_train = pd.concat([y_1[:1000], y_1[:1000]], ignore_index=True)
@@ -68,6 +68,9 @@ def SVM_Method(batch, minutes, elementList, norm):
 
     data = pd.read_csv('./processed/%s_avg%s_lowPower_data.csv' %(batch, str(minutes)))
     X = data[elementList]
+    # C = pd.read_csv('./processed/%s_avg%s_C.csv' %(batch, str(minutes)))
+    # C[C<0.175] = 0
+    # X = pd.concat([X, C], axis=1)
     if norm:
         X_min = X.min()
         X_max = X.max()
