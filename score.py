@@ -20,9 +20,9 @@ def Score(batch, minutes, elementList, norm):
 
     data = pd.read_csv('./processed/%s_avg%s_lowPower_data.csv' %(testBatch, str(minutes)))
     X = data[elementList]
-    # C = pd.read_csv('./processed/%s_avg%s_C.csv' %(testBatch, str(minutes)))
-    # C[C<0.175] = 0
-    # X = pd.concat([X, C], axis=1)
+    C = pd.read_csv('./processed/%s_avg%s_C.csv' %(testBatch, str(minutes)))
+    C[X['wind_speed']<0.175] = 0
+    X = pd.concat([X, C], axis=1)
     if norm:
         X = (X - X_min) / (X_max - X_min)
     y = data['frozen']

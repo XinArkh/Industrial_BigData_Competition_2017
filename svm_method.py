@@ -68,9 +68,9 @@ def SVM_Method(batch, minutes, elementList, norm):
 
     data = pd.read_csv('./processed/%s_avg%s_lowPower_data.csv' %(batch, str(minutes)))
     X = data[elementList]
-    # C = pd.read_csv('./processed/%s_avg%s_C.csv' %(batch, str(minutes)))
-    # C[C<0.175] = 0
-    # X = pd.concat([X, C], axis=1)
+    C = pd.read_csv('./processed/%s_avg%s_C.csv' %(batch, str(minutes)))
+    C[X['wind_speed']<0.175] = 0
+    X = pd.concat([X, C], axis=1)
     if norm:
         X_min = X.min()
         X_max = X.max()
