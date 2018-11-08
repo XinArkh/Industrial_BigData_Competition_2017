@@ -28,10 +28,10 @@ C = 1 - X['power'] / p(X['wind_speed'])
 # C[X['wind_speed'] <= 0.175] = 0
 plt.figure()
 plt.scatter(X['wind_speed'], C, c=y, s=0.1, cmap='RdBu')
-# plt.axis([0, 1, -2, 2])
+plt.axis([0, 1, -2, 2])
 plt.show()
 
-C.to_csv('./processed/%s_avg%s_C.csv'
-                 %(batch, str(minutes)), index=0, header='C')
+# C.to_csv('./processed/%s_avg%s_C.csv'
+#                  %(batch, str(minutes)), index=0, header='C')
 
 # deltaC = C[]

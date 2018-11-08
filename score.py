@@ -3,6 +3,8 @@
 
 import pickle
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
 from sklearn.metrics import accuracy_score, confusion_matrix
 
 
@@ -28,17 +30,29 @@ def Score(batch, minutes, elementList, norm):
     y = data['frozen']
 
     ypred = model.predict(X)
-    print('准确率：%0.3f' %accuracy_score(y, ypred))
+    print('准确率：%0.2f%%' %(accuracy_score(y, ypred) * 100))
     # 评分公式：
     # http://www.industrial-bigdata.com/competition/competitionAction!showDetail.action?competition.competitionId=1
     # 注意这里的p和n与公式中是相反的
     tn, fp, fn, tp = confusion_matrix(y, ypred).ravel()
-    print([tn, fp, fn, tp])
-    fault = len(y[y==1])
-    normal = len(y) - fault
-    alpha = fault / len(y)
+    # print([tn, fp, fn, tp])
+    fullData = pd.read_csv('./processed/%s_avg%s_data.csv' %(testBatch, str(minutes)))
+    highPower = fullData.loc[fullData['power'] >= 2]
+    highY = highPower['frozen']
+    fn += len(highY[highY==1])
+    tn += len(highY[highY==0])
+
+    fault = len(y[y==1]) + len(highY[highY==1])
+    normal = len(y) + len(highY) - fault
+    alpha = fault / ( fault + normal )
     beta = 1 - alpha
     print('得分：%0.3f' %(100*(1-alpha*fp/normal-beta*fn/fault)))
+
+    sns.heatmap([[tn, fp], [fn, tp]], annot=True, fmt='d', cbar=False, 
+        xticklabels=['0', '1'], yticklabels=['0', '1'])
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.show()
 
 
 if __name__ == '__main__':

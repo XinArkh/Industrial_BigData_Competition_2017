@@ -21,9 +21,11 @@
 import pickle
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, roc_curve, auc
 
 
 def _Train_Test_Gen(X, y, method='normal', train_size=5000, random_state=1):
@@ -60,7 +62,7 @@ def _Train_Test_Gen(X, y, method='normal', train_size=5000, random_state=1):
 
 
 # batch-训练集；minutes-平均分钟数；elementList-所选特征；norm-是否归一化处理
-def SVM_Method(batch, minutes, elementList, norm):
+def SVM_Method(batch, minutes, elementList, norm, roc=True):
     # 效果较好的特征有：wind_speed与power；pitch%NUM%_angle与power；
     # pitch%NUM%_speed与power；yaw_speed与power；
     # pitch1_ng5_DC，pitch2_ng5_DC，pitch3_ng5_DC与power
@@ -79,16 +81,6 @@ def SVM_Method(batch, minutes, elementList, norm):
 
     X_train, X_test, y_train, y_test = _Train_Test_Gen(X, y, method='RandomOverSampling', train_size=5000, random_state=1)
 
-    # import matplotlib.pyplot as plt
-    # import seaborn as sns; sns.set()
-    # plt.subplot(1, 2, 1)
-    # plt.scatter(X_train['wind_speed'], X_train['power'], c=y_train, s=0.1, cmap='RdBu')
-    # lim = plt.axis()
-    # plt.subplot(1, 2, 2)
-    # plt.scatter(X_test['wind_speed'], X_test['power'], c=y_test, s=0.1, cmap='RdBu')
-    # plt.axis(lim)
-    # plt.show()
-
     model = SVC(kernel='rbf', C=1E10)
     model.fit(X_train, y_train)
     ymodel = model.predict(X_test)
@@ -100,6 +92,26 @@ def SVM_Method(batch, minutes, elementList, norm):
     else:
         with open('models/svm_model_%s+%s.pkl' %(batch, '+'.join(elementList)), 'wb') as f:
             pickle.dump(model, f)
+
+    # drawing ROC curve
+    if roc:
+        yscore = model.decision_function(X_test)
+        fpr, tpr, _ = roc_curve(y_test, yscore)
+        roc_auc = auc(fpr, tpr)
+
+        plt.figure()
+        lw = 2
+        plt.plot(fpr, tpr, color='darkorange',
+                 lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+        plt.plot([0, 1], [0, 1], '--')
+        plt.xlim([0.0, 1.0])
+        plt.ylim([0.0, 1.005])
+        plt.xlabel('False Positive Rate')
+        plt.ylabel('True Positive Rate')
+        plt.title('ROC Curve of the Model')
+        plt.legend(loc="lower right")
+        plt.show()
+
 
 
 if __name__ == '__main__':
